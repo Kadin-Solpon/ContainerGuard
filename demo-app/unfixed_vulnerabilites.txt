@@ -1,0 +1,36 @@
+this is a list of vulnerabilites that relate to the vulnerable Dockerfile (Dockerfile.vulnerable). these vulnerabilities are fixed in Dockerfile.hardened.
+
+This documents the list of vulnerabilites found (by hand) in Dockerfile.vulnerable.
+
+
+1. Running as root user. There is no user defined in the dockerfile, so docker runs as root. 
+this violates 4.1 of the CIS docker benchmark test
+
+2. Exposed password in the dockerfile. "ENV pwd=password12345" is hardcoded into the dockerfile.
+this is dangerous because anyone with access to the host will be able to see the env password.
+also anyone with access to the image can run "docker inspect" and read the password.
+this violates 4.10 of the CIS docker benchmark test.
+
+3. port 22 (ssh port) is opened. this exposes the container to attacks, brutefore or zero-days.
+this violates principle 5.9 of the CIS docker benchmark test.
+
+4. this uses python:latest rather than a set version. constantly changing the version of python used opens up new, undiscovered vulnerabilities.
+this violates 4.11 of the cis docker benchmark
+it also defeats the purpose of a continer, which is non-volatitility. 
+
+
+5. this container does not have any resource limits with memory or CPU, meaning an attacker can do a DOS attack by overloading the container and making it consume all available memory and CPU cores.
+this violates 5.11 of the CIS Docker benchmark.
+
+6. there is no healthcheck defined in the dockerfile. 
+this means that docker cannot check to see if the container is still up and running.
+becuase of this, docker doesnt know wether or not to restart a container.
+this violates 4.6 of the CIS docker benchmark
+
+7. the default container capabilities are kept. this violates the CIS docker benchmark. 
+all capablities should be taken away and only the ones need should be given back.
+this violates 5.4 of the CIS docker benchmark.
+
+8. the filesystem of the container is writeable, meaning the attacker can install tools like curl and exfiltrate data.
+this violates 5.13 of the CIS docker benchmark.  
+

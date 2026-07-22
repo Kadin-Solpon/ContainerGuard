@@ -1,0 +1,11 @@
+FROM python:3.13
+WORKDIR /home/kadinator/cyber/ContainerGuard/demo-app
+
+COPY vApp.py ./
+COPY requirements.txt ./
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 22
+
+CMD ["python", "app.py"]
