@@ -4,3 +4,4 @@
 __pycache__/
 *.pyc
 demo-app/trivyScan/.cache/
+demo-app/trivyScan/
