@@ -6,7 +6,9 @@ setup(
     packages=find_packages(),
     install_requires=[
         "click>=8.1",
-	"docker>=7.2.0"
+	"docker>=7.2.0",
+        "rich>=13.0",
+        "reportlab>=4.0",
     ],
     entry_points={
         "console_scripts": [

@@ -1,11 +1,17 @@
-FROM python:3.13
-WORKDIR /home/kadinator/cyber/ContainerGuard/demo-app
+FROM python:latest  # TODO [CG-006b]: Pin to a digest. Run: docker pull <image> && docker inspect <image> --format '{{.RepoDigests}}'
+WORKDIR /app
 
-COPY vApp.py ./
 COPY requirements.txt ./
-
 RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 22
+COPY app.py ./
 
+# REMOVED [CG-002b]: ENV pwd — hardcoded secret baked into the image. Anyone with image access can read it via docker inspect. Pass at runtime via --env-file .env or a secrets manager.
+
+EXPOSE 5000
+# REMOVED [CG-008b]: EXPOSE 22 — SSH port exposes unnecessary attack surface. A web app has no legitimate reason to expose SSH. Only expose ports your app actually needs.
+
+RUN useradd -m appuser
+USER appuser
+HEALTHCHECK --interval=30s --timeout=3s CMD curl -f http://localhost:5000/health || exit 1
 CMD ["python", "app.py"]
