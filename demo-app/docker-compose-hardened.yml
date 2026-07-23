@@ -1,6 +1,6 @@
 services:
   app:
-    image: vuln:latest # built from Dockerfile.hardened
+    image: hardened-image:latest # built from Dockerfile.hardened
     build:
       context: .
       dockerfile: Dockerfile.hardened
