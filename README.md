@@ -1,4 +1,13 @@
-#ContainerGuard
+# ContainerGuard
+
+## How to install containerguard
+1. Make sure you have docker desktop open and your container (if needed) is running
+2. Clone the repo
+3. start virtual environment
+4. pip install -r requirements
+5. pip install -e .
+6. run containerguard --help to see if its working
+
 
 ## How to use ContainerGuard
 ### Universal flags
