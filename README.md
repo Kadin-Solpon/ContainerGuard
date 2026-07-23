@@ -8,6 +8,12 @@
 5. pip install -e .
 6. run containerguard --help to see if its working
 
+## Notes before running
+1. make sure you change the build and image that docker-compose-hardened.yml uses to your own.
+2. additionally, you can delete the following Dockerfiles and other files/directories that were just used as testing/experimentation:
+    demo-app/
+      Dockerfile.hardened, Dockerfile.vulnerable, unfixed_vulnerabilities.txt
+   /tests
 
 ## How to use ContainerGuard
 ### Universal flags
